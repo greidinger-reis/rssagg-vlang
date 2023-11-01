@@ -11,8 +11,8 @@ pub mut:
 	id         string    [primary]
 	name       string
 	api_key    string    [unique]
-	created_at time.Time [json: 'createdAt']
-	updated_at time.Time [json: 'updatedAt']
+	created_at time.Time 
+	updated_at time.Time
 }
 
 fn User.new(name string) &User {
@@ -45,7 +45,7 @@ struct UserDto {
 pub mut:
 	id         string
 	name       string
-	api_key    string
-	created_at string
-	updated_at string
+	api_key    string [json: 'apiKey']
+	created_at string [json: 'createdAt']
+	updated_at string [json: 'updatedAt']
 }
