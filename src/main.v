@@ -29,6 +29,7 @@ fn init() {
 	db := create_db_sqlite()
 	sql db {
 		create table User
+		create table Feed
 	} or { panic(err) }
 }
 
@@ -73,4 +74,10 @@ fn (mut app App) error[T](code int, err T) vweb.Result {
 	app.set_status(code, '')
 
 	return app.json[T](err)
+}
+
+fn (mut app App) created() vweb.Result {
+	app.set_status(201, '')
+
+	return app.text('')
 }

@@ -1,5 +1,6 @@
 module main
 
+import vweb
 import net.http
 
 const (
@@ -26,4 +27,9 @@ fn (mut app App) get_current_user() ?&User {
 	api_key := extract_api_key_from_headers(app.req.header) or { return none }
 	user := app.users_find_by_api_key(api_key) or { return none }
 	return user
+}
+
+fn (mut app App) unauthorized() vweb.Result {
+	app.set_status(401, '')
+	return app.text('')
 }

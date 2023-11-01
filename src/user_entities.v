@@ -5,13 +5,15 @@ import rand
 import encoding.base64
 import crypto.sha256
 
+[table: 'user']
 [noinit]
 struct User {
 pub mut:
 	id         string    [primary]
 	name       string
 	api_key    string    [unique]
-	created_at time.Time 
+	feeds      []Feed    [fkey: 'user_id']
+	created_at time.Time
 	updated_at time.Time
 }
 
@@ -31,14 +33,11 @@ fn (u &User) to_dto() &UserDto {
 	return &UserDto{
 		id: u.id
 		name: u.name
+		api_key: u.api_key
+		feeds: u.feeds.to_dto()
 		created_at: u.created_at.str()
 		updated_at: u.updated_at.str()
-		api_key: u.api_key
 	}
-}
-
-fn (u []User) to_dto() []UserDto {
-	return u.map(*it.to_dto())
 }
 
 struct UserDto {
@@ -46,6 +45,7 @@ pub mut:
 	id         string
 	name       string
 	api_key    string [json: 'apiKey']
+	feeds      []FeedDto
 	created_at string [json: 'createdAt']
 	updated_at string [json: 'updatedAt']
 }
