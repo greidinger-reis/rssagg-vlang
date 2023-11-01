@@ -13,12 +13,21 @@ const (
 [noinit]
 struct App {
 	vweb.Context
-mut:
+pub mut:
 	db sqlite.DB
 }
 
 fn App.new(db sqlite.DB) App {
-	return App{ db: db }
+	return App{
+		db: db
+	}
+}
+
+fn init() {
+	db := create_db_sqlite()
+	sql db {
+		create table User
+	} or { panic(err) }
 }
 
 fn main() {
