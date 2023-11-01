@@ -9,7 +9,7 @@ import crypto.sha256
 struct User {
 pub mut:
 	id         string    [primary]
-	name       string    [unique]
+	name       string
 	api_key    string    [unique]
 	created_at time.Time [json: 'createdAt']
 	updated_at time.Time [json: 'updatedAt']
@@ -33,6 +33,7 @@ fn (u &User) to_dto() &UserDto {
 		name: u.name
 		created_at: u.created_at.str()
 		updated_at: u.updated_at.str()
+		api_key: u.api_key
 	}
 }
 
@@ -44,6 +45,7 @@ struct UserDto {
 pub mut:
 	id         string
 	name       string
+	api_key    string
 	created_at string
 	updated_at string
 }

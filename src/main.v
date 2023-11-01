@@ -13,6 +13,8 @@ const (
 [noinit]
 struct App {
 	vweb.Context
+mut:
+	user ?&User
 pub mut:
 	db sqlite.DB
 }
@@ -57,6 +59,14 @@ pub fn (mut app App) before_request() {
 	app.header.add(.access_control_expose_headers, 'Link')
 	app.header.add(.access_control_allow_credentials, 'false')
 	app.header.add(.access_control_max_age, '300')
+
+	api_key_cookie := app.req.cookies[auth_header_name]
+
+	if !api_key_cookie.is_blank() {
+		app.header.set_custom(auth_header_name, 'Api-Key ${api_key_cookie}') or { return }
+	}
+
+	app.user = app.get_current_user()
 }
 
 fn (mut app App) error[T](code int, err T) vweb.Result {

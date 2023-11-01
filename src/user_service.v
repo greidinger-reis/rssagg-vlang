@@ -14,9 +14,9 @@ fn (mut app App) users_find_many(limit int, offset int) []User {
 	} or { return [] }
 }
 
-fn (mut app App) users_find_by_id(id string) ?&User {
+fn (mut app App) users_find_by_api_key(api_key string) ?&User {
 	list := sql app.db {
-		select from User where id == id
+		select from User where api_key == api_key
 	} or { [] }
 
 	if list.len == 0 {
