@@ -44,8 +44,8 @@ struct UserDto {
 pub mut:
 	id         string
 	name       string
-	api_key    string [json: 'apiKey']
+	api_key    string    [json: 'apiKey']
 	feeds      []FeedDto
-	created_at string [json: 'createdAt']
-	updated_at string [json: 'updatedAt']
+	created_at string    [json: 'createdAt']
+	updated_at string    [json: 'updatedAt']
 }

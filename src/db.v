@@ -4,6 +4,8 @@ import db.sqlite
 import db.pg
 import os
 
+type Connection = pg.DB | sqlite.DB
+
 const (
 	sqlite_filename = 'db.sqlite'
 	pg_port         = os.getenv('PG_PORT').int()

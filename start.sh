@@ -13,8 +13,16 @@ fi
 
 # Check if the argument is "dev" and execute the corresponding command
 if [ "$1" = "dev" ]; then
-    v watch run src
+    v -o bin/$PROJECT_NAME watch run src 
 elif [ "$1" = "prod" ]; then
+	# create bin folder if it doesn't exist
+	if [ ! -d "bin" ]; then
+		mkdir bin
+	fi
+	# delete project binary if it exists
+	if [ "bin/$PROJECT_NAME" ]; then
+		rm bin/$PROJECT_NAME
+	fi
     v src --prod -o bin/$PROJECT_NAME
     ./bin/$PROJECT_NAME
 else

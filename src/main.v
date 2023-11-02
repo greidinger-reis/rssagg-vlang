@@ -30,6 +30,7 @@ fn init() {
 	sql db {
 		create table User
 		create table Feed
+		create table FeedFollow
 	} or { panic(err) }
 }
 
